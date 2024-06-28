@@ -74,4 +74,9 @@ dkms.conf
 
 # Executables
 
+# STM32CubeIDE
+.metadata/
+.settings/
+*.ld
+
 # End of https://www.toptal.com/developers/gitignore/api/c,c++
