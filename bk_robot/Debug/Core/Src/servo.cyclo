@@ -1,0 +1,4 @@
+../Core/Src/servo.c:23:6:servo3_init	1
+../Core/Src/servo.c:27:6:servo3_set_duty_cycle	1
+../Core/Src/servo.c:32:6:servo_init	1
+../Core/Src/servo.c:40:6:servo_set_angle	5
