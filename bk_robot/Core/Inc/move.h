@@ -24,7 +24,7 @@
 #define ROBOT_DIR_BW		9
 #define ROBOT_DIR_L			10
 
-#define 	MIN_SPEED		20
+#define 	MIN_SPEED		30
 #define 	MAX_SPEED		30
 
 void dc_init();

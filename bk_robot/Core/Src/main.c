@@ -137,7 +137,7 @@ int main(void)
   {
 	  if(flag_timer2 == 1){
 		  flag_timer2 = 0;
-		  count = (count + 1) % 40;
+		  count = (count + 1) % 20;
 		  if(count == 0){
 			  HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
 			  HAL_UART_Transmit(&huart2, (void*)wheel1, sprintf((void*)wheel1,"%ld",abs(encoder_pulse[0])), 10);

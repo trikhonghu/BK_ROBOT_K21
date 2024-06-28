@@ -19,61 +19,76 @@ uint8_t state[4] = {0,0,0,0};
 void read_encoder_data(){
 	for (uint8_t i = 0; i < 4; i++){
 		switch (state[i]) {
-			case STATE_00:
-				if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					encoder_pulse[i] += 1;
-					state[i] = STATE_01;
-				}else if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					encoder_pulse[i] -= 1;
-					state[i] = STATE_10;
-				}else if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					state[i] = STATE_11;
-				}else if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					state[i] = STATE_00;
+//			case STATE_00:
+//				if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					encoder_pulse[i] += 1;
+//					state[i] = STATE_01;
+//				}else if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					encoder_pulse[i] -= 1;
+//					state[i] = STATE_10;
+//				}else if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					state[i] = STATE_11;
+//				}else if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					state[i] = STATE_00;
+//				}
+//				break;
+//			case STATE_01:
+//				if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					encoder_pulse[i] += 1;
+//					state[i] = STATE_11;
+//				}else if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					encoder_pulse[i] -= 1;
+//					state[i] = STATE_00;
+//				}else if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					state[i] = STATE_10;
+//				}else if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					state[i] = STATE_01;
+//				}
+//				break;
+//			case STATE_11:
+//				if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					encoder_pulse[i] += 1;
+//					state[i] = STATE_10;
+//				}else if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					encoder_pulse[i] -= 1;
+//					state[i] = STATE_01;
+//				}else if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					state[i] = STATE_11;
+//				}else if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					state[i] = STATE_00;
+//				}
+//				break;
+//			case STATE_10:
+//				if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					encoder_pulse[i] += 1;
+//					state[i] = STATE_00;
+//				}else if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					encoder_pulse[i] -= 1;
+//					state[i] = STATE_11;
+//				}else if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					state[i] = STATE_10;
+//				}else if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
+//					state[i] = STATE_01;
+//				}
+//				break;
+//			default:
+//				state[i]=STATE_00;
+//				break;
+			case 0:
+				if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i])) {
+					state[i] = 1;
+					encoder_pulse[i]++;
 				}
-				break;
-			case STATE_01:
-				if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					encoder_pulse[i] += 1;
-					state[i] = STATE_11;
-				}else if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					encoder_pulse[i] -= 1;
-					state[i] = STATE_00;
-				}else if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					state[i] = STATE_10;
-				}else if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					state[i] = STATE_01;
+				else {
+					state[i] = 0;
 				}
-				break;
-			case STATE_11:
-				if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					encoder_pulse[i] += 1;
-					state[i] = STATE_10;
-				}else if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					encoder_pulse[i] -= 1;
-					state[i] = STATE_01;
-				}else if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					state[i] = STATE_11;
-				}else if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					state[i] = STATE_00;
+			case 1:
+				if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i])) {
+					state[i] = 0;
 				}
-				break;
-			case STATE_10:
-				if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					encoder_pulse[i] += 1;
-					state[i] = STATE_00;
-				}else if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					encoder_pulse[i] -= 1;
-					state[i] = STATE_11;
-				}else if(HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && !HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					state[i] = STATE_10;
-				}else if(!HAL_GPIO_ReadPin(ENCODER_A_GPIO[i], ENCODER_A_PIN[i]) && HAL_GPIO_ReadPin(ENCODER_B_GPIO[i], ENCODER_B_PIN[i])){
-					state[i] = STATE_01;
+				else {
+					state[i] = 1;
 				}
-				break;
-			default:
-				state[i]=STATE_00;
-				break;
 		}
 	}
 }
